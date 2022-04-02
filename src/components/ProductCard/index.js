@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { Image, Text } from "react-native";
 
 import {
@@ -11,8 +12,12 @@ import {
   BoxImage,
   PlusText,
 } from "./styles";
+import ShopContext from "../../context/shop-context";
 
 function ProductCard({ navigation, product, isFavorite }) {
+  const context = useContext(ShopContext);
+  const { addProductToCart } = context;
+
   return (
     <Container isFavorite>
       <BoxImage>
@@ -28,7 +33,7 @@ function ProductCard({ navigation, product, isFavorite }) {
               right: 5,
             }}
             onPress={() => {
-              navigation.navigate("Cart");
+              addProductToCart(product);
             }}
           >
             <Text
@@ -49,7 +54,11 @@ function ProductCard({ navigation, product, isFavorite }) {
           <Descriptions numberOfLines={2}>{product.description}</Descriptions>
           <BoxPricing>
             <Pricing>${product.price}</Pricing>
-            <AddToCartButton>
+            <AddToCartButton
+              onPress={() => {
+                addProductToCart(product);
+              }}
+            >
               <PlusText>+</PlusText>
             </AddToCartButton>
           </BoxPricing>

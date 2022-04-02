@@ -13,7 +13,7 @@ export const Title = styled.Text`
 `;
 export const PlusText = styled.Text`
   color: #8775fe;
-  font-size: 20;
+  font-size: 20px;
 `;
 export const UpperTitle = styled.Text`
   font-size: 8px;

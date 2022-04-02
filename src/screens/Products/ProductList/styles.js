@@ -8,3 +8,9 @@ export const SectionTitle = styled.Text`
   font-weight: bold;
   margin: 20px 0 10px;
 `;
+export const Button = styled.Button`
+  background-color: #f94d6a;
+  flex: 1;
+  height: 48px;
+  flex-direction: row;
+`;

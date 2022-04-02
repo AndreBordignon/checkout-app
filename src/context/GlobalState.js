@@ -1,39 +1,55 @@
 import React, { useState, useReducer } from "react";
 
 import ShopContext from "./shop-context";
-import { shopReducer, ADD_PRODUCT, REMOVE_PRODUCT } from "./reducers";
+import {
+  shopReducer,
+  SET_PRODUCTS,
+  CLEAR_PRODUCTS,
+  ADD_PRODUCT,
+  REMOVE_PRODUCT,
+  SET_LOADING,
+  CLEAR_CART,
+} from "./reducers";
 
 const GlobalState = (props) => {
-  const products = [
-    { id: "p1", title: "Gaming Mouse", price: 29.99 },
-    { id: "p2", title: "Harry Potter 3", price: 9.99 },
-    { id: "p3", title: "Used plastic bottle", price: 0.99 },
-    { id: "p4", title: "Half-dried plant", price: 2.99 },
-  ];
-  // const [cart, setCart] = useState([]);
-  const [cartState, dispatch] = useReducer(shopReducer, { cart: [] });
+  const products = [];
+
+  const [cartState, dispatch] = useReducer(shopReducer, {
+    cart: [],
+    products: [],
+    loading: true,
+  });
 
   const addProductToCart = (product) => {
-    setTimeout(() => {
-      // setCart(updatedCart);
-      dispatch({ type: ADD_PRODUCT, product: product });
-    }, 700);
+    dispatch({ type: ADD_PRODUCT, product: product });
   };
 
+  const setProductsList = (products) => {
+    dispatch({ type: SET_PRODUCTS, products: products });
+  };
+
+  const clearProductsList = () => {
+    dispatch({ type: CLEAR_PRODUCTS, products: [] });
+  };
   const removeProductFromCart = (productId) => {
-    setTimeout(() => {
-      // setCart(updatedCart);
-      dispatch({ type: REMOVE_PRODUCT, productId: productId });
-    }, 700);
+    dispatch({ type: REMOVE_PRODUCT, productId: productId });
+  };
+
+  const setLoading = (loading) => {
+    dispatch({ type: SET_LOADING, loading: loading });
   };
 
   return (
     <ShopContext.Provider
       value={{
-        products: products,
+        products: cartState.products,
         cart: cartState.cart,
+        loading: cartState.loading,
         addProductToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
+        setProductsList: setProductsList,
+        clearProductsList: clearProductsList,
+        setLoading: setLoading,
       }}
     >
       {props.children}

@@ -16,7 +16,6 @@ function FilterBar({ selectedCategorie, setSelectedCategorie }) {
     await getAllCategories()
       .then((response) => {
         const catArray = [response.data.unshift("Ultimos")];
-        console.log(catArray);
         setCategories(response.data);
       })
       .catch((error) => {
@@ -40,6 +39,7 @@ function FilterBar({ selectedCategorie, setSelectedCategorie }) {
           data={categories}
           horizontal
           renderItem={(item) => renderItem(item)}
+          keyExtractor={() => Math.random()}
         />
       )}
     </Container>

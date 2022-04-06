@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex-direction: row;
-  margin: 5px;
+  margin: 0 5px;
 `;
 export const Tag = styled.TouchableOpacity`
   padding: 5px 10px;

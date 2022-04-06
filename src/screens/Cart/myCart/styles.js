@@ -75,3 +75,30 @@ export const ButtonAddItems = styled.Text`
   text-transform: uppercase;
   margin: 10px 0;
 `;
+export const ContainerPrice = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #cccccc;
+  padding: 10px 40px;
+  border-left-width: 0;
+  border-right-width: 0;
+`;
+export const TotalText = styled.Text`
+  font-weight: bold;
+`;
+export const PriceText = styled.Text`
+  font-weight: bold;
+`;
+export const ButtonCheckout = styled.TouchableOpacity`
+  margin: 10px 30px;
+  background-color: #504db6;
+  padding: 16px 30px;
+  border-radius: 37px;
+`;
+export const ButtonCheckoutText = styled.Text`
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+`;

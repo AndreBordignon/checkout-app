@@ -1,10 +1,23 @@
+import { useContext } from "react";
 import { Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Container, CartIcon, CartButton, Title } from "./styles";
-import cart from "../../../assets/icons/cart.png";
+import {
+  Container,
+  CartIcon,
+  CartButton,
+  Title,
+  Circle,
+  NumberItems,
+} from "./styles";
+import cartIcon from "../../../assets/icons/cart.png";
 
+import shopContext from "../../context/shop-context";
 function HeaderBar(props) {
+  const context = useContext(shopContext);
+
+  const { cart } = context;
+
   return (
     <>
       <SafeAreaView
@@ -14,9 +27,12 @@ function HeaderBar(props) {
       <Container>
         <Title title={props.title}>{props.title}</Title>
 
-        {props.cart && (
+        {cart.length > 0 && (
           <CartButton onPress={() => props.navigation.navigate("Cart")}>
-            <CartIcon source={cart} />
+            <CartIcon source={cartIcon} />
+            <Circle>
+              <NumberItems>{cart.length}</NumberItems>
+            </Circle>
           </CartButton>
         )}
       </Container>

@@ -3,8 +3,6 @@ import React, { useState, useReducer } from "react";
 import ShopContext from "./shop-context";
 import {
   shopReducer,
-  SET_PRODUCTS,
-  CLEAR_PRODUCTS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   SET_LOADING,
@@ -24,21 +22,15 @@ const GlobalState = (props) => {
     dispatch({ type: ADD_PRODUCT, product: product });
   };
 
-  const setProductsList = (products) => {
-    dispatch({ type: SET_PRODUCTS, products: products });
-  };
-
-  const clearProductsList = () => {
-    dispatch({ type: CLEAR_PRODUCTS, products: [] });
-  };
   const removeProductFromCart = (productId) => {
     dispatch({ type: REMOVE_PRODUCT, productId: productId });
   };
-
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART, cart: [] });
+  };
   const setLoading = (loading) => {
     dispatch({ type: SET_LOADING, loading: loading });
   };
-
   return (
     <ShopContext.Provider
       value={{
@@ -47,9 +39,8 @@ const GlobalState = (props) => {
         loading: cartState.loading,
         addProductToCart: addProductToCart,
         removeProductFromCart: removeProductFromCart,
-        setProductsList: setProductsList,
-        clearProductsList: clearProductsList,
         setLoading: setLoading,
+        clearCart: clearCart,
       }}
     >
       {props.children}

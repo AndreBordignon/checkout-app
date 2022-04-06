@@ -33,7 +33,7 @@ export const ButtonAddItems = styled.Text`
   margin: 10px 0;
 `;
 export const ImageEmpty = styled.Image`
-  width: 40;
-  height: 50;
+  width: 40px;
+  height: 50px;
   margin: 20px 0;
 `;

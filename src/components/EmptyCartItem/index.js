@@ -9,7 +9,7 @@ import {
   ImageEmpty,
 } from "./styles";
 
-function EmptyCardItem({ navigation }) {
+function EmptyCartItem({ navigation }) {
   return (
     <EmptyContainer>
       <ImageEmpty source={bag} />
@@ -21,4 +21,4 @@ function EmptyCardItem({ navigation }) {
   );
 }
 
-export default EmptyCardItem;
+export default EmptyCartItem;

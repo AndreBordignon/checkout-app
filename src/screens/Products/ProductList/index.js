@@ -2,7 +2,12 @@ import React, { useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { FlatList, ActivityIndicator } from "react-native";
-import { Container, SectionTitle, Button } from "./styles";
+import {
+  Container,
+  SectionTitle,
+  ButtonCheckout,
+  ButtonCheckoutText,
+} from "./styles";
 
 import {
   getAllProducts,
@@ -11,14 +16,15 @@ import {
 import ProductCard from "../../../components/ProductCard";
 import FilterBar from "../../../components/FilterBar";
 import shopContext from "../../../context/shop-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function ProductList({ navigation }) {
   const [categories, setCategories] = React.useState();
   const [selectedCategorie, setSelectedCategorie] = React.useState();
   const [favoriteProducts, setFavoriteProducts] = React.useState();
+  const [productList, setProductsList] = React.useState();
   const context = useContext(shopContext);
-  const { products, setProductsList, addProductToCart, setLoading, loading } =
-    context;
+  const { products, cart, addProductToCart, setLoading, loading } = context;
   useEffect(() => {
     fetchAllProducts();
   }, []);
@@ -54,7 +60,6 @@ function ProductList({ navigation }) {
       .then((response) => {
         const notFavoritesLength = response.data.length;
         setFavoriteProducts(response.data.slice(0, 5));
-
         const productsList = response.data.slice(5, notFavoritesLength);
         setProductsList(productsList);
       })
@@ -76,8 +81,12 @@ function ProductList({ navigation }) {
     await getProductsByCategory(category)
       .then((response) => {
         const notFavoritesLength = response.data.length;
-        setFavorites(response.data);
-        setProductsList(response.data.slice(5, notFavoritesLength));
+        setFavoriteProducts(response.data);
+        const productListByCategory = response.data.slice(
+          5,
+          notFavoritesLength
+        );
+        setProductsList(productListByCategory);
       })
       .catch((error) => {
         console.log(error);
@@ -117,6 +126,7 @@ function ProductList({ navigation }) {
             keyExtractor={(item) => `${item.id}-${item.name}`}
             horizontal
             style={{
+              flex: 1,
               minHeight: 320,
               borderBottomWidth: 1,
               borderBottomColor: "#EBEBED",
@@ -124,11 +134,11 @@ function ProductList({ navigation }) {
           />
         </>
       )}
-      {products && (
+      {productList && (
         <>
           <SectionTitle>Produtos</SectionTitle>
           <FlatList
-            data={products}
+            data={productList}
             renderItem={({ item }) => (
               <ProductCard
                 navigation={navigation}
@@ -138,10 +148,14 @@ function ProductList({ navigation }) {
               />
             )}
             keyExtractor={(item) => `${item.id}-${item.name}`}
-            style={{ minHeight: 320, flex: 1 }}
             numColumns={2}
           />
         </>
+      )}
+      {cart.length > 0 && (
+        <ButtonCheckout onPress={() => navigation.navigate("Cart")}>
+          <ButtonCheckoutText>Ir para o carrinho</ButtonCheckoutText>
+        </ButtonCheckout>
       )}
     </Container>
   );

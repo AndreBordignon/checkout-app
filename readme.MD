@@ -1,4 +1,4 @@
-# Checkout APP (Teste Pallermo)
+# Checkout APP (Teste Palermo)
 
 Clonar o projeto
 
